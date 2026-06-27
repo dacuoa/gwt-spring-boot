@@ -17,9 +17,11 @@ public class FormView extends Composite implements FormPresenter.Display {
     private TextArea notesBox;
     private Button submitButton;
     private Label statusLabel;
+    private Long currentInspectionId;
 
     public FormView() {
         VerticalPanel mainPanel = new VerticalPanel();
+        mainPanel.setWidth("100%");
         mainPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         mainPanel.setStyleName("form-panel");
 
@@ -252,6 +254,16 @@ public class FormView extends Composite implements FormPresenter.Display {
     }
 
     @Override
+    public Long getCurrentInspectionId() {
+        return currentInspectionId;
+    }
+
+    @Override
+    public void setCurrentInspectionId(Long id) {
+        this.currentInspectionId = id;
+    }
+
+    @Override
     public Button getSubmitButton() {
         return submitButton;
     }
@@ -272,5 +284,6 @@ public class FormView extends Composite implements FormPresenter.Display {
         lightsPresentBox.setValue(false);
         notesBox.setValue("");
         statusLabel.setText("");
+        currentInspectionId = null;
     }
 }

@@ -15,16 +15,22 @@ public class InspectionService {
     private InspectionRepository repository;
 
     public InspectionDTO saveInspection(InspectionDTO dto) {
-        Inspection inspection = new Inspection(
-                dto.getInspectorName(),
-                dto.getInspectionDate(),
-                dto.getBikeSerialNumber(),
-                dto.getFrameCondition(),
-                dto.getBrakes(),
-                dto.getTyres(),
-                dto.getLightsPresent(),
-                dto.getNotes()
-        );
+        Inspection inspection;
+        if (dto.getId() != null) {
+            inspection = repository.findById(dto.getId()).orElse(new Inspection());
+        } else {
+            inspection = new Inspection();
+        }
+        
+        inspection.setInspectorName(dto.getInspectorName());
+        inspection.setInspectionDate(dto.getInspectionDate());
+        inspection.setBikeSerialNumber(dto.getBikeSerialNumber());
+        inspection.setFrameCondition(dto.getFrameCondition());
+        inspection.setBrakes(dto.getBrakes());
+        inspection.setTyres(dto.getTyres());
+        inspection.setLightsPresent(dto.getLightsPresent());
+        inspection.setNotes(dto.getNotes());
+
         Inspection saved = repository.save(inspection);
         return toDTO(saved);
     }

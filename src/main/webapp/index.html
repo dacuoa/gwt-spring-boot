@@ -38,6 +38,9 @@
             border-radius: 4px;
             border: 1px solid #ddd;
         }
+        .search-panel .gwt-Image {
+            display: none;
+        }
         .field-container {
             margin-bottom: 15px;
         }
@@ -99,14 +102,14 @@
         }
         .status-label {
             display: block;
-            margin-top: 15px;
-            padding: 10px;
             border-radius: 4px;
             text-align: center;
             font-weight: bold;
-            min-height: 20px;
         }
         .status-label:not(:empty) {
+            margin-top: 15px;
+            padding: 10px;
+            min-height: 20px;
             background-color: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
@@ -123,42 +126,48 @@
             border-radius: 4px;
         }
         .gwt-StackPanelItem-header {
-            background-color: #f0f0f0;
+            background-color: #ADD8E6;
             padding: 10px;
-            cursor: pointer;
+            cursor: default;
             border-radius: 4px 4px 0 0;
-            font-weight: bold;
+            font-weight: bold !important;
             color: #333;
+            text-align: center;
         }
-        .gwt-StackPanelItem-header:hover {
-            background-color: #e0e0e0;
-        }
-        table {
+        /* Removed hover background effect */
+        .results-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
+            cursor: default;
         }
-        th {
-            background-color: #ADD8E6;
+        .results-table th {
+            background-color: #D3D3D3;
             color: #333;
             padding: 12px;
-            text-align: left;
             border: 1px solid #ddd;
+            cursor: default;
         }
-        td {
+        .results-table td {
             padding: 12px;
-            border: 1px solid #ddd;
+            border: none;
+            cursor: default;
         }
-        tr:nth-child(even) {
+        .gwt-CellTable td {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+        }
+        .results-table tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        tr:hover {
-            background-color: #f0f0f0;
+        .results-table tr.selected {
+            background-color: #add8e6 !important;
         }
+        /* Removed hover background effect */
     </style>
 </head>
 <body>
-    <h1>🚴 Bike Inspection System</h1>
+    <h1>🚴 Bike Inspections</h1>
     <div id="app"></div>
     <script src="bikeInspection/bikeInspection.nocache.js"></script>
 </body>

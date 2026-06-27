@@ -9,19 +9,35 @@ import com.dacuoa.client.presenter.SearchPresenter;
 
 public class SearchView extends Composite implements SearchPresenter.Display {
     private SearchPresenter presenter;
-    private TextBox searchBox;
+    private ListBox searchBox;
     private Button searchButton;
     private CellTable<InspectionRow> resultsTable;
     private Label statusLabel;
+    private ScrollPanel scrollPanel;
+    private SelectionListener selectionListener;
+
+    public interface SelectionListener {
+        void onInspectionSelected(InspectionRow row);
+    }
+
+    public void setSelectionListener(SelectionListener listener) {
+        this.selectionListener = listener;
+    }
 
     public SearchView() {
         VerticalPanel mainPanel = new VerticalPanel();
+        mainPanel.setWidth("100%");
         mainPanel.setStyleName("search-panel");
 
         // Search Input
         HorizontalPanel searchPanel = new HorizontalPanel();
-        searchPanel.add(new Label("Search (by Serial Number or Inspector Name):"));
-        searchBox = new TextBox();
+        searchPanel.setSpacing(5);
+        searchPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+        searchPanel.add(new Label("Search by Inspector Name:"));
+        searchBox = new ListBox();
+        searchBox.addItem("Alice");
+        searchBox.addItem("Bob");
+        searchBox.addItem("Charlie");
         searchBox.setWidth("300px");
         searchPanel.add(searchBox);
 
@@ -38,7 +54,8 @@ public class SearchView extends Composite implements SearchPresenter.Display {
 
         // Results Table
         resultsTable = new CellTable<InspectionRow>();
-        resultsTable.setWidth("100%", true);
+        resultsTable.addStyleName("results-table");
+        resultsTable.setWidth("100%", false);
 
         // Define columns
         TextColumn<InspectionRow> idColumn = new TextColumn<InspectionRow>() {
@@ -104,10 +121,34 @@ public class SearchView extends Composite implements SearchPresenter.Display {
             }
         };
         resultsTable.addColumn(lightsColumn, "Lights");
+        resultsTable.setRowData(new java.util.ArrayList<InspectionRow>());
 
-        ScrollPanel scrollPanel = new ScrollPanel(resultsTable);
-        scrollPanel.setHeight("400px");
+        scrollPanel = new ScrollPanel(resultsTable);
+        scrollPanel.getElement().getStyle().setProperty("maxHeight", "270px");
+        scrollPanel.setVisible(true);
         mainPanel.add(scrollPanel);
+
+        final com.google.gwt.view.client.SingleSelectionModel<InspectionRow> selectionModel = new com.google.gwt.view.client.SingleSelectionModel<InspectionRow>();
+        resultsTable.setSelectionModel(selectionModel);
+        resultsTable.setRowStyles(new com.google.gwt.user.cellview.client.RowStyles<InspectionRow>() {
+            @Override
+            public String getStyleNames(InspectionRow row, int rowIndex) {
+                if (selectionModel.isSelected(row)) {
+                    return "selected";
+                }
+                return "";
+            }
+        });
+        selectionModel.addSelectionChangeHandler(new com.google.gwt.view.client.SelectionChangeEvent.Handler() {
+            @Override
+            public void onSelectionChange(com.google.gwt.view.client.SelectionChangeEvent event) {
+                resultsTable.redraw();
+                InspectionRow selected = selectionModel.getSelectedObject();
+                if (selected != null && selectionListener != null) {
+                    selectionListener.onInspectionSelected(selected);
+                }
+            }
+        });
 
         initWidget(mainPanel);
         setStyleName("search-view");
@@ -117,7 +158,7 @@ public class SearchView extends Composite implements SearchPresenter.Display {
 
     @Override
     public String getSearchTerm() {
-        return searchBox.getValue();
+        return searchBox.getValue(searchBox.getSelectedIndex());
     }
 
     @Override

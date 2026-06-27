@@ -27,6 +27,8 @@ public class FormPresenter {
         Button getSubmitButton();
         void setStatusMessage(String message);
         void clearForm();
+        Long getCurrentInspectionId();
+        void setCurrentInspectionId(Long id);
     }
 
     private Display display;
@@ -62,7 +64,7 @@ public class FormPresenter {
             return;
         }
 
-        service.submitInspection(inspectorName, inspectionDate, bikeSerialNumber, frameCondition,
+        service.submitInspection(display.getCurrentInspectionId(), inspectorName, inspectionDate, bikeSerialNumber, frameCondition,
                 brakes, tyres, lightsPresent, notes, new InspectionService.InspectionCallback() {
                     @Override
                     public void onSuccess(String result) {

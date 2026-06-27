@@ -18,10 +18,13 @@ public class InspectionService {
         void onError(String error);
     }
 
-    public void submitInspection(String inspectorName, String inspectionDate, String bikeSerialNumber,
+    public void submitInspection(Long id, String inspectorName, String inspectionDate, String bikeSerialNumber,
                                  String frameCondition, String brakes, String tyres, Boolean lightsPresent,
                                  String notes, InspectionCallback callback) {
         JSONObject json = new JSONObject();
+        if (id != null) {
+            json.put("id", new com.google.gwt.json.client.JSONNumber(id));
+        }
         json.put("inspectorName", new JSONString(inspectorName));
         json.put("inspectionDate", new JSONString(inspectionDate));
         json.put("bikeSerialNumber", new JSONString(bikeSerialNumber));

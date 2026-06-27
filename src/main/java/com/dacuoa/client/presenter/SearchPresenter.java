@@ -43,7 +43,7 @@ public class SearchPresenter {
             return;
         }
 
-        display.setStatusMessage("Searching...");
+        display.setStatusMessage("Thinking...");
         service.search(searchTerm, new InspectionService.SearchCallback() {
             @Override
             public void onSuccess(String result) {
@@ -80,7 +80,7 @@ public class SearchPresenter {
                     }
                 }
                 display.displayResults(rows);
-                display.setStatusMessage("Found " + rows.size() + " results");
+                display.setStatusMessage("");
             }
         } catch (Exception e) {
             display.setStatusMessage("Error parsing results: " + e.getMessage());

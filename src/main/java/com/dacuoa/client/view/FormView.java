@@ -126,7 +126,7 @@ public class FormView extends Composite implements FormPresenter.Display {
         mainPanel.add(notesPanel);
 
         // Submit Button
-        submitButton = new Button("Submit Inspection");
+        submitButton = new Button("Save");
         submitButton.setStyleName("submit-button");
         mainPanel.add(submitButton);
 
@@ -261,6 +261,7 @@ public class FormView extends Composite implements FormPresenter.Display {
     @Override
     public void setCurrentInspectionId(Long id) {
         this.currentInspectionId = id;
+        submitButton.setText(id == null ? "Save" : "Update");
     }
 
     @Override
@@ -285,5 +286,6 @@ public class FormView extends Composite implements FormPresenter.Display {
         notesBox.setValue("");
         statusLabel.setText("");
         currentInspectionId = null;
+        submitButton.setText("Save");
     }
 }

@@ -12,8 +12,13 @@ import java.util.List;
 @RequestMapping("/api/inspections")
 @CrossOrigin(origins = "*")
 public class InspectionController {
+
+    private final InspectionService service;
+
     @Autowired
-    private InspectionService service;
+    public InspectionController(InspectionService service) {
+        this.service = service;
+    }
 
     @PostMapping
     public ResponseEntity<InspectionDTO> createInspection(@RequestBody InspectionDTO inspection) {

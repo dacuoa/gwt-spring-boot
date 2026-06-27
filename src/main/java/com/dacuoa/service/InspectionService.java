@@ -1,0 +1,54 @@
+package com.dacuoa.service;
+
+import com.dacuoa.dto.InspectionDTO;
+import com.dacuoa.model.Inspection;
+import com.dacuoa.repository.InspectionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class InspectionService {
+    @Autowired
+    private InspectionRepository repository;
+
+    public InspectionDTO saveInspection(InspectionDTO dto) {
+        Inspection inspection = new Inspection(
+                dto.getInspectorName(),
+                dto.getInspectionDate(),
+                dto.getBikeSerialNumber(),
+                dto.getFrameCondition(),
+                dto.getBrakes(),
+                dto.getTyres(),
+                dto.getLightsPresent(),
+                dto.getNotes()
+        );
+        Inspection saved = repository.save(inspection);
+        return toDTO(saved);
+    }
+
+    public List<InspectionDTO> search(String searchTerm) {
+        List<Inspection> results = repository.searchByInspectorNameOrSerialNumber(searchTerm);
+        return results.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public InspectionDTO getById(Long id) {
+        return repository.findById(id).map(this::toDTO).orElse(null);
+    }
+
+    private InspectionDTO toDTO(Inspection inspection) {
+        return new InspectionDTO(
+                inspection.getId(),
+                inspection.getInspectorName(),
+                inspection.getInspectionDate(),
+                inspection.getBikeSerialNumber(),
+                inspection.getFrameCondition(),
+                inspection.getBrakes(),
+                inspection.getTyres(),
+                inspection.getLightsPresent(),
+                inspection.getNotes()
+        );
+    }
+}

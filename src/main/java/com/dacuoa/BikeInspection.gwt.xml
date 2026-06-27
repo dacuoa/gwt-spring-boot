@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='bikeInspection'>
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+    <inherits name='com.google.gwt.user.cellview.CellView'/>
+
+    <entry-point class='com.dacuoa.client.BikeInspection'/>
+
+    <source path='client'/>
+    <source path='shared'/>
+
+    <add-linker name="xsiframe"/>
+    <set-configuration-property name="user.agent" value="safari,firefox"/>
+</module>

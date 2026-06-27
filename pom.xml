@@ -79,10 +79,10 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <!-- Logging -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-compiler-eclipse</artifactId>
+            <version>2.8.5</version>
         </dependency>
 
         <!-- Testing -->
@@ -107,7 +107,15 @@
                 <extensions>true</extensions>
                 <configuration>
                     <moduleName>com.dacuoa.BikeInspection</moduleName>
+                    <webappDirectory>${project.basedir}/src/main/webapp/</webappDirectory>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -116,9 +124,14 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <fork>true</fork>
-                    <executable>javac</executable>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-compiler-eclipse</artifactId>
+                        <version>2.8.5</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>

@@ -211,14 +211,14 @@ public class FormView extends Composite implements FormPresenter.Display {
 
     @Override
     public void clearForm() {
-        inspectorNameBox.clear();
-        inspectionDateBox.clear();
-        bikeSerialNumberBox.clear();
+        inspectorNameBox.setValue("");
+        inspectionDateBox.setValue("");
+        bikeSerialNumberBox.setValue("");
         frameConditionBox.setSelectedIndex(0);
         brakesBox.setSelectedIndex(0);
         tyresBox.setSelectedIndex(0);
         lightsPresentBox.setValue(false);
-        notesBox.clear();
+        notesBox.setValue("");
         statusLabel.setText("");
     }
 }

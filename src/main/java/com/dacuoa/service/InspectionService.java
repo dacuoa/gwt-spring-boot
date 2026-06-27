@@ -11,8 +11,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class InspectionService {
+    private final InspectionRepository repository;
+
     @Autowired
-    private InspectionRepository repository;
+    public InspectionService(InspectionRepository repository) {
+        this.repository = repository;
+    }
 
     public InspectionDTO saveInspection(InspectionDTO dto) {
         Inspection inspection;
@@ -21,7 +25,7 @@ public class InspectionService {
         } else {
             inspection = new Inspection();
         }
-        
+
         inspection.setInspectorName(dto.getInspectorName());
         inspection.setInspectionDate(dto.getInspectionDate());
         inspection.setBikeSerialNumber(dto.getBikeSerialNumber());

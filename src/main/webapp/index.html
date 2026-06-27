@@ -38,15 +38,17 @@
             border-radius: 4px;
             border: 1px solid #ddd;
         }
-        .form-panel > div,
-        .search-panel > div {
+        .field-container {
             margin-bottom: 15px;
         }
-        label {
+        .field-label {
             display: inline-block;
-            min-width: 200px;
+            margin-right: 10px;
             font-weight: bold;
             color: #333;
+        }
+        .lights-label {
+            margin-right: 30px;
         }
         input[type="text"],
         input[type="date"],
@@ -85,6 +87,15 @@
         }
         button:active {
             background-color: #3d8b40;
+        }
+        .submit-button {
+            background-color: #008CBA;
+        }
+        .submit-button:hover {
+            background-color: #007bb5;
+        }
+        .submit-button:active {
+            background-color: #005f87;
         }
         .status-label {
             display: block;
@@ -128,8 +139,8 @@
             margin-top: 15px;
         }
         th {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #ADD8E6;
+            color: #333;
             padding: 12px;
             text-align: left;
             border: 1px solid #ddd;

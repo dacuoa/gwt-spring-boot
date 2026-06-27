@@ -26,6 +26,7 @@ public class SearchView extends Composite implements SearchPresenter.Display {
         searchPanel.add(searchBox);
 
         searchButton = new Button("Search");
+        searchButton.setStyleName("submit-button");
         searchPanel.add(searchButton);
 
         mainPanel.add(searchPanel);

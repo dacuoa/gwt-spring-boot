@@ -40,4 +40,10 @@ public class InspectionController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteInspection(@PathVariable Long id) {
+        service.deleteInspection(id);
+        return ResponseEntity.noContent().build();
+    }
 }

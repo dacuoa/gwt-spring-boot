@@ -2,9 +2,10 @@ package com.dacuoa.client.view;
 
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.cell.client.Cell;
-import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.cell.client.ButtonCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.dacuoa.client.presenter.SearchPresenter;
 
 public class SearchView extends Composite implements SearchPresenter.Display {
@@ -15,13 +16,31 @@ public class SearchView extends Composite implements SearchPresenter.Display {
     private Label statusLabel;
     private ScrollPanel scrollPanel;
     private SelectionListener selectionListener;
+    private DeleteListener deleteListener;
+    private PostDeleteListener postDeleteListener;
 
     public interface SelectionListener {
         void onInspectionSelected(InspectionRow row);
     }
 
+    public interface DeleteListener {
+        void onDeleteRequested(Long id);
+    }
+
+    public interface PostDeleteListener {
+        void onDeleteComplete();
+    }
+
     public void setSelectionListener(SelectionListener listener) {
         this.selectionListener = listener;
+    }
+
+    public void setDeleteListener(DeleteListener listener) {
+        this.deleteListener = listener;
+    }
+
+    public void setPostDeleteListener(PostDeleteListener listener) {
+        this.postDeleteListener = listener;
     }
 
     public SearchView() {
@@ -121,6 +140,24 @@ public class SearchView extends Composite implements SearchPresenter.Display {
             }
         };
         resultsTable.addColumn(lightsColumn, "Lights");
+
+        Column<InspectionRow, String> deleteColumn = new Column<InspectionRow, String>(new ButtonCell()) {
+            @Override
+            public String getValue(InspectionRow object) {
+                return "Delete";
+            }
+        };
+        deleteColumn.setCellStyleNames("delete-btn-column");
+        deleteColumn.setFieldUpdater(new FieldUpdater<InspectionRow, String>() {
+            @Override
+            public void update(int index, InspectionRow row, String value) {
+                if (deleteListener != null) {
+                    deleteListener.onDeleteRequested(row.getId());
+                }
+            }
+        });
+        resultsTable.addColumn(deleteColumn, "");
+
         resultsTable.setRowData(new java.util.ArrayList<InspectionRow>());
 
         scrollPanel = new ScrollPanel(resultsTable);
@@ -174,6 +211,13 @@ public class SearchView extends Composite implements SearchPresenter.Display {
     @Override
     public void displayResults(java.util.List<InspectionRow> results) {
         resultsTable.setRowData(results);
+    }
+
+    @Override
+    public void onDeleteComplete() {
+        if (postDeleteListener != null) {
+            postDeleteListener.onDeleteComplete();
+        }
     }
 
     public static class InspectionRow {

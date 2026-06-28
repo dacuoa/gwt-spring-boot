@@ -14,6 +14,12 @@ public class MainView extends Composite implements SearchView.SelectionListener 
         searchView = new SearchView();
 
         searchView.setSelectionListener(this);
+        searchView.setPostDeleteListener(new SearchView.PostDeleteListener() {
+            @Override
+            public void onDeleteComplete() {
+                formView.clearForm();
+            }
+        });
 
         // Section 1
         VerticalPanel searchSection = new VerticalPanel();

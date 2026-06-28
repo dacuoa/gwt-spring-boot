@@ -48,6 +48,10 @@ public class InspectionService {
         return repository.findById(id).map(this::toDTO).orElse(null);
     }
 
+    public void deleteInspection(Long id) {
+        repository.deleteById(id);
+    }
+
     private InspectionDTO toDTO(Inspection inspection) {
         return new InspectionDTO(
                 inspection.getId(),

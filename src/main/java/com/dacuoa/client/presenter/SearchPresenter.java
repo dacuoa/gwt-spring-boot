@@ -16,6 +16,8 @@ public class SearchPresenter {
         Button getSearchButton();
         void setStatusMessage(String message);
         void displayResults(List<SearchView.InspectionRow> results);
+        void setDeleteListener(SearchView.DeleteListener listener);
+        void onDeleteComplete();
     }
 
     private Display display;
@@ -32,6 +34,29 @@ public class SearchPresenter {
             @Override
             public void onClick(ClickEvent event) {
                 handleSearch();
+            }
+        });
+
+        display.setDeleteListener(new SearchView.DeleteListener() {
+            @Override
+            public void onDeleteRequested(Long id) {
+                handleDelete(id);
+            }
+        });
+    }
+
+    private void handleDelete(Long id) {
+        display.setStatusMessage("Deleting...");
+        service.deleteInspection(id, new InspectionService.DeleteCallback() {
+            @Override
+            public void onSuccess() {
+                display.onDeleteComplete();
+                handleSearch();
+            }
+
+            @Override
+            public void onError(String error) {
+                display.setStatusMessage("Delete failed: " + error);
             }
         });
     }

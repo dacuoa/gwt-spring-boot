@@ -18,6 +18,11 @@ public class InspectionService {
         void onError(String error);
     }
 
+    public interface DeleteCallback {
+        void onSuccess();
+        void onError(String error);
+    }
+
     public void submitInspection(Long id, String inspectorName, String inspectionDate, String bikeSerialNumber,
                                  String frameCondition, String brakes, String tyres, Boolean lightsPresent,
                                  String notes, InspectionCallback callback) {
@@ -44,6 +49,31 @@ public class InspectionService {
                 public void onResponseReceived(Request request, Response response) {
                     if (response.getStatusCode() == 200) {
                         callback.onSuccess("Inspection saved");
+                    } else {
+                        callback.onError("Status: " + response.getStatusCode());
+                    }
+                }
+
+                @Override
+                public void onError(Request request, Throwable exception) {
+                    callback.onError(exception.getMessage());
+                }
+            });
+        } catch (RequestException e) {
+            callback.onError(e.getMessage());
+        }
+    }
+
+    public void deleteInspection(Long id, DeleteCallback callback) {
+        String url = BASE_URL + "/" + id;
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.DELETE, url);
+
+        try {
+            builder.sendRequest(null, new RequestCallback() {
+                @Override
+                public void onResponseReceived(Request request, Response response) {
+                    if (response.getStatusCode() == 204) {
+                        callback.onSuccess();
                     } else {
                         callback.onError("Status: " + response.getStatusCode());
                     }

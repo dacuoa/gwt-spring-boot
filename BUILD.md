@@ -64,7 +64,20 @@ The output should show a path to your JDK, not just JRE.
 
 4. Click OK and restart your command prompt
 
-#### Step 2: Verify Setup
+#### Step 2: Set MAVEN_HOME Environment Variable
+
+1. Create a new system variable:
+   - Variable name: `MAVEN_HOME`
+   - Variable value: Path to your Maven installation directory
+     - Example: `C:\Program Files\apache-maven-3.9.6`
+
+2. Update PATH:
+   - Find the "Path" variable in **System variables**
+   - Add: `%MAVEN_HOME%\bin` to the list
+
+3. Click OK and restart your command prompt
+
+#### Step 3: Verify Setup
 
 ```bash
 echo %JAVA_HOME%

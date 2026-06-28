@@ -28,45 +28,42 @@ public class FormView extends Composite implements FormPresenter.Display {
         // Inspector Name
         FlowPanel inspectorPanel = new FlowPanel();
         inspectorPanel.setStyleName("field-container");
-        InlineLabel inspectorLabel = new InlineLabel("Inspector Name:");
+        Label inspectorLabel = new Label("Inspector Name:");
         inspectorLabel.setStyleName("field-label");
         inspectorPanel.add(inspectorLabel);
         inspectorNameBox = new ListBox();
         inspectorNameBox.addItem("Alice");
         inspectorNameBox.addItem("Bob");
         inspectorNameBox.addItem("Charlie");
-        inspectorNameBox.setWidth("300px");
         inspectorPanel.add(inspectorNameBox);
         mainPanel.add(inspectorPanel);
 
         // Inspection Date
         FlowPanel datePanel = new FlowPanel();
         datePanel.setStyleName("field-container");
-        InlineLabel dateLabel = new InlineLabel("Inspection Date (YYYY-MM-DD):");
+        Label dateLabel = new Label("Inspection Date (YYYY-MM-DD):");
         dateLabel.setStyleName("field-label");
         datePanel.add(dateLabel);
         DateTimeFormat dateFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
         inspectionDateBox = new DateBox();
         inspectionDateBox.setFormat(new DateBox.DefaultFormat(dateFormat));
-        inspectionDateBox.setWidth("300px");
         datePanel.add(inspectionDateBox);
         mainPanel.add(datePanel);
 
         // Bike Serial Number
         FlowPanel serialPanel = new FlowPanel();
         serialPanel.setStyleName("field-container");
-        InlineLabel serialLabel = new InlineLabel("Bike Serial Number:");
+        Label serialLabel = new Label("Bike Serial Number:");
         serialLabel.setStyleName("field-label");
         serialPanel.add(serialLabel);
         bikeSerialNumberBox = new TextBox();
-        bikeSerialNumberBox.setWidth("300px");
         serialPanel.add(bikeSerialNumberBox);
         mainPanel.add(serialPanel);
 
         // Frame Condition
         FlowPanel framePanel = new FlowPanel();
         framePanel.setStyleName("field-container");
-        InlineLabel frameLabel = new InlineLabel("Frame Condition:");
+        Label frameLabel = new Label("Frame Condition:");
         frameLabel.setStyleName("field-label");
         framePanel.add(frameLabel);
         frameConditionBox = new ListBox();
@@ -79,7 +76,7 @@ public class FormView extends Composite implements FormPresenter.Display {
         // Brakes
         FlowPanel brakesPanel = new FlowPanel();
         brakesPanel.setStyleName("field-container");
-        InlineLabel brakesLabel = new InlineLabel("Brakes:");
+        Label brakesLabel = new Label("Brakes:");
         brakesLabel.setStyleName("field-label");
         brakesPanel.add(brakesLabel);
         brakesBox = new ListBox();
@@ -92,7 +89,7 @@ public class FormView extends Composite implements FormPresenter.Display {
         // Tyres
         FlowPanel tyresPanel = new FlowPanel();
         tyresPanel.setStyleName("field-container");
-        InlineLabel tyresLabel = new InlineLabel("Tyres:");
+        Label tyresLabel = new Label("Tyres:");
         tyresLabel.setStyleName("field-label");
         tyresPanel.add(tyresLabel);
         tyresBox = new ListBox();
@@ -105,7 +102,7 @@ public class FormView extends Composite implements FormPresenter.Display {
         // Lights
         FlowPanel lightsPanel = new FlowPanel();
         lightsPanel.setStyleName("field-container");
-        InlineLabel lightsLabel = new InlineLabel("Lights Present:");
+        Label lightsLabel = new Label("Lights Present:");
         lightsLabel.setStyleName("field-label");
         lightsLabel.addStyleName("lights-label");
         lightsPanel.add(lightsLabel);
@@ -116,12 +113,10 @@ public class FormView extends Composite implements FormPresenter.Display {
         // Notes
         FlowPanel notesPanel = new FlowPanel();
         notesPanel.setStyleName("field-container");
-        InlineLabel notesLabel = new InlineLabel("Notes:");
+        Label notesLabel = new Label("Notes:");
         notesLabel.setStyleName("field-label");
         notesPanel.add(notesLabel);
         notesBox = new TextArea();
-        notesBox.setWidth("400px");
-        notesBox.setHeight("100px");
         notesPanel.add(notesBox);
         mainPanel.add(notesPanel);
 

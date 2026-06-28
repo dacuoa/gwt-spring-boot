@@ -38,7 +38,6 @@ public class SearchView extends Composite implements SearchPresenter.Display {
         searchBox.addItem("Alice");
         searchBox.addItem("Bob");
         searchBox.addItem("Charlie");
-        searchBox.setWidth("300px");
         searchPanel.add(searchBox);
 
         searchButton = new Button("Search");
